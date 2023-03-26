@@ -19,9 +19,9 @@ const { ids, styles } = StyleSheet.create({
     maxHeight: 150,
     height: 150,
     width: 150,
-    "@media (min-width: 800px)": {
-      display: "none"
-    },
+    // "@media (min-width: 800px)": {
+    //   display: "none"
+    // },
 
     resizeMode: "contain"
   },
