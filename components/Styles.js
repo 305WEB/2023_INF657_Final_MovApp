@@ -77,7 +77,9 @@ const { ids, styles } = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     width: "100%",
-    marginVertical: 10
+    marginVertical: 10,
+    position: "relative",
+    zIndex: 1
   },
   elevation: {
     elevation: 20,
@@ -94,6 +96,19 @@ const { ids, styles } = StyleSheet.create({
     padding: 8,
     marginLeft: 30,
     marginBottom: 10
+  },
+  addItemAreaHeader: {
+    // bottom: 60,
+    width: "100%",
+    backgroundColor: "cyan",
+    height: 44,
+    borderBottomWidth: 1,
+    borderBottomColor: "darkblue",
+    position: "fixed"
+
+    // right: 20,
+    // // position: "absolute",
+    // zIndex: 3
   }
 });
 

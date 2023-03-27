@@ -11,10 +11,11 @@ import {
   Image,
   Button,
   TextInput,
-  Keyboard
+  Keyboard,
+  ImageBackground
 } from "react-native";
 import Data from "./Data";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 import styles from "./Styles";
 
@@ -27,6 +28,10 @@ export default function AddItem({ handleAdd }) {
   // Add Item Area
 
   const [addItemArea, setAddItemArea] = useState("none");
+
+  // Add Item Area
+
+  const [addItemAreaBtn, setAddItemAreaBtn] = useState("block");
 
   // Add New Item Button
 
@@ -55,8 +60,9 @@ export default function AddItem({ handleAdd }) {
       setDescription("");
       setPrice("");
       setQuantity("");
-      addNewItemBtn();
+      // addNewItemBtn();
       setAddItemArea("none");
+      setAddItemAreaBtn("block");
 
       Keyboard.dismiss();
     } else {
@@ -68,11 +74,16 @@ export default function AddItem({ handleAdd }) {
 
   const AddNewItemArea = () => {
     setAddItemArea("flex");
+    setAddItemAreaBtn("none");
   };
 
-  const addNewItemBtn = () => {
-    setAddItemBtn("none");
+  const image = {
+    uri: "https://cdn6.f-cdn.com/contestentries/1397912/17268448/5b7b6950e0845_thumb900.jpg"
   };
+
+  // const addNewItemBtn = () => {
+  //   setAddItemBtn("none");
+  // };
 
   // EDIT ----------------------------------------------------------
 
@@ -101,13 +112,32 @@ export default function AddItem({ handleAdd }) {
 
   return (
     <View>
-      <Button
-        title="Add New Item"
-        onPress={AddNewItemArea}
-        style={{ display: addItemBtn }}
-      ></Button>
+      <ImageBackground
+        source={image}
+        resizeMode="contain"
+        style={[styles.addItemAreaHeader]}
+        imageStyle={{
+          resizeMode: "contain",
+          alignSelf: "flex-start"
+        }}
+      >
+        {/* <Button title="Add New Item" onPress={AddNewItemArea}></Button> */}
+
+        <TouchableWithoutFeedback
+          onPress={AddNewItemArea}
+          style={{
+            display: addItemAreaBtn,
+            position: "fixed",
+            alignSelf: "flex-end",
+
+            right: 25
+          }}
+        >
+          <FontAwesome name="plus" size={34} color="black" />
+        </TouchableWithoutFeedback>
+      </ImageBackground>
       {/* addItemArea below refers to state var */}
-      <View style={{ display: addItemArea }}>
+      <View style={{ display: addItemArea, marginTop: 30 }}>
         <TextInput
           style={[styles.formField]}
           onChangeText={(value) => setTitle(value)}

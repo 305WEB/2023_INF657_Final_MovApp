@@ -13,6 +13,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 import styles from "./Styles";
+import { Card } from "react-native-paper";
 
 export default function Item({
   id,
@@ -51,28 +52,36 @@ export default function Item({
         onPress={() => console.log("Item Selected", itemList)}
       >
         <>
-          <View
-            style={[styles.mainContainerColumn1, styles.card, styles.elevation]}
-          >
-            <Image
-              style={[styles.image]}
-              source={{ uri: `${image}` }}
-              dataSet={{ media: styles.image }}
-            />
+          <Card>
+            <View
+              style={[
+                styles.mainContainerColumn1,
+                styles.card,
+                styles.elevation
+              ]}
+            >
+              <Image
+                style={[styles.image]}
+                source={{ uri: `${image}` }}
+                dataSet={{ media: styles.image }}
+              />
 
-            <Text style={[styles.spaceAround3, styles.inputText]}>{title}</Text>
-          </View>
-          <Text style={[styles.spaceAround3, styles.inputText]}>
-            Units: {quantity}
-          </Text>
-          <Text style={[styles.spaceAround3, styles.inputText]}>
-            Price: ${price}
-          </Text>
-          <View style={[styles.card]}>
-            <Text style={[styles.spaceAround3, styles.description]}>
-              Description: {description}
+              <Text style={[styles.spaceAround3, styles.inputText]}>
+                {title}
+              </Text>
+            </View>
+            <Text style={[styles.spaceAround3, styles.inputText]}>
+              Units: {quantity}
             </Text>
-          </View>
+            <Text style={[styles.spaceAround3, styles.inputText]}>
+              Price: ${price}
+            </Text>
+            <View style={[styles.card]}>
+              <Text style={[styles.spaceAround3, styles.description]}>
+                Description: {description}
+              </Text>
+            </View>
+          </Card>
         </>
       </TouchableHighlight>
     </Swipeable>
