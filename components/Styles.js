@@ -15,7 +15,6 @@ const { ids, styles } = StyleSheet.create({
     // flex: 1,
     marginLeft: 10,
     marginBottom: 10,
-    backgroundColor: "lightgreen",
     maxHeight: 150,
     height: 150,
     width: 150,
@@ -24,6 +23,14 @@ const { ids, styles } = StyleSheet.create({
     // },
 
     resizeMode: "contain"
+  },
+  card: {
+    backgroundColor: "white",
+    width: "100%",
+    // marginVertical: 10,
+    position: "relative",
+    zIndex: 1,
+    marginTop: 15
   },
   containerColumn3: {
     flex: 1,
@@ -54,18 +61,15 @@ const { ids, styles } = StyleSheet.create({
   },
   deleteContainer: {
     backgroundColor: "red",
-    marginTop: 10,
-    width: 70,
+    width: 100,
     justifyContent: "center",
     alignItems: "center"
   },
   editContainer: {
     backgroundColor: "lightblue",
-    marginTop: 10,
-    width: 70,
+    width: 100,
     justifyContent: "center",
-    alignItems: "center",
-    maxHeight: 150
+    alignItems: "center"
   },
   inputText: {
     color: "darkblue",
@@ -73,14 +77,7 @@ const { ids, styles } = StyleSheet.create({
     maxHeight: 70,
     paddingBottom: 8
   },
-  card: {
-    backgroundColor: "white",
-    borderRadius: 8,
-    width: "100%",
-    marginVertical: 10,
-    position: "relative",
-    zIndex: 1
-  },
+
   elevation: {
     elevation: 20,
     shadowColor: "#52006A"
@@ -109,6 +106,13 @@ const { ids, styles } = StyleSheet.create({
     // right: 20,
     // // position: "absolute",
     // zIndex: 3
+  },
+  headerTitle: {
+    width: "40%",
+    marginTop: 8,
+    marginLeft: 15,
+    fontWeight: "bold",
+    color: "darkblue"
   }
 });
 

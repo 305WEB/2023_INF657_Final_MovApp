@@ -18,6 +18,7 @@ import Data from "./Data";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 import styles from "./Styles";
+import * as ImagePicker from "expo-image-picker";
 
 export default function AddItem({ handleAdd }) {
   const [title, setTitle] = useState("");
@@ -31,45 +32,72 @@ export default function AddItem({ handleAdd }) {
 
   // Add Item Area
 
-  const [addItemAreaBtn, setAddItemAreaBtn] = useState("block");
+  const [addItemAreaBtn, setAddItemAreaBtn] = useState("flex");
 
   // Add New Item Button
 
   const [addItemBtn, setAddItemBtn] = useState("flex");
 
+  // IMAGE PICKER ----------------------
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    } else {
+      alert("You did not select any image.");
+    }
+  };
+
+  const imageSource =
+    selectedImage !== null
+      ? { uri: selectedImage }
+      : {
+          uri: "https://www.fortlauderdale.gov/Project/Contents/Main/_gfx/cmn/logo.svg"
+        };
+
+  // ----------------------
+
+  // SUBMIT
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      title.length !== 0 &&
-      price.length !== 0 &&
-      quantity.length !== 0 &&
-      description.trim().length > 5
-    ) {
-      const newItem = {
-        title: title,
-        description: description,
-        price: price,
-        quantity: quantity,
-        image: "https://picsum.photos/150"
-        // image: require("./../assets/icon.png")
-      };
+    // if (
+    //   title.length !== 0 &&
+    //   price.length !== 0 &&
+    //   quantity.length !== 0 &&
+    //   description.trim().length > 5
+    // ) {
+    const newItem = {
+      title: title,
+      description: description,
+      price: price,
+      quantity: quantity,
+      image: selectedImage
+      // image: require("./../assets/icon.png")
+    };
 
-      handleAdd(newItem);
-      setTitle("");
-      setDescription("");
-      setPrice("");
-      setQuantity("");
-      // addNewItemBtn();
-      setAddItemArea("none");
-      setAddItemAreaBtn("block");
+    handleAdd(newItem);
+    setTitle("");
+    setDescription("");
+    setPrice("");
+    setQuantity("");
+    // addNewItemBtn();
+    setAddItemArea("none");
+    setAddItemAreaBtn("block");
 
-      Keyboard.dismiss();
-    } else {
-      alert(
-        "Please enter more than 5 Characters in description and complete all fields."
-      );
-    }
+    Keyboard.dismiss();
+    // } else {
+    //   alert(
+    //     "Please enter more than 5 Characters in description and complete all fields."
+    //   );
+    // }
   };
 
   const AddNewItemArea = () => {
@@ -77,9 +105,14 @@ export default function AddItem({ handleAdd }) {
     setAddItemAreaBtn("none");
   };
 
-  const image = {
-    uri: "https://cdn6.f-cdn.com/contestentries/1397912/17268448/5b7b6950e0845_thumb900.jpg"
+  const handleCloseAddItemArea = () => {
+    setAddItemArea("none");
+    setAddItemAreaBtn("flex");
   };
+
+  // const image = {
+  //   uri: "https://cdn6.f-cdn.com/contestentries/1397912/17268448/5b7b6950e0845_thumb900.jpg"
+  // };
 
   // const addNewItemBtn = () => {
   //   setAddItemBtn("none");
@@ -110,32 +143,40 @@ export default function AddItem({ handleAdd }) {
   //   setItemList(itemList.filter((item) => item.id !== id));
   // };
 
+  //   <ImageBackground
+  //   source={image}
+  //  resizeMode="contain"
+  //  style={[styles.addItemAreaHeader]}
+  //  imageStyle={{
+  //    resizeMode: "cover",
+  //    alignSelf: "flex-start"
+  //  }}
+  // >
+
   return (
     <View>
-      <ImageBackground
-        source={image}
-        resizeMode="contain"
-        style={[styles.addItemAreaHeader]}
-        imageStyle={{
-          resizeMode: "contain",
-          alignSelf: "flex-start"
-        }}
-      >
+      <View style={styles.addItemAreaHeader}>
+        <Text style={styles.headerTitle}>Shopping App</Text>
         {/* <Button title="Add New Item" onPress={AddNewItemArea}></Button> */}
 
-        <TouchableWithoutFeedback
+        <FontAwesome
+          name="plus"
+          size={30}
+          color="darkblue"
           onPress={AddNewItemArea}
           style={{
             display: addItemAreaBtn,
-            position: "fixed",
+            // position: "fixed",
             alignSelf: "flex-end",
-
-            right: 25
+            zIndex: 5,
+            marginTop: "-6%",
+            right: 25,
+            width: 50,
+            height: 50
           }}
-        >
-          <FontAwesome name="plus" size={34} color="black" />
-        </TouchableWithoutFeedback>
-      </ImageBackground>
+        />
+      </View>
+
       {/* addItemArea below refers to state var */}
       <View style={{ display: addItemArea, marginTop: 30 }}>
         <TextInput
@@ -170,7 +211,16 @@ export default function AddItem({ handleAdd }) {
           keyboardType="numeric"
         />
 
+        <Button title="Add Image" onPress={pickImageAsync}></Button>
+
+        <Image
+          source={imageSource}
+          resizeMode="contain"
+          style={{ width: 100, height: 100 }}
+        />
+
         <Button onPress={handleSubmit} title="Add Item"></Button>
+        <Button onPress={handleCloseAddItemArea} title="Cancel"></Button>
       </View>
     </View>
   );
