@@ -1,14 +1,6 @@
 import { useState } from "react";
 import * as React from "react";
-import {
-  TextInput,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
-  ScrollView
-} from "react-native";
-import StyleSheet from "react-native-media-query";
+import { View, SafeAreaView, Text } from "react-native";
 import Data from "./Data";
 import styles from "./Styles";
 import ItemList from "./ItemList";
@@ -21,11 +13,21 @@ export default function ShoppingList(
   quantity
 ) {
   const [itemList, setItemList] = useState(Data);
+  const [splashMessage, setSplashMessage] = useState("flex");
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f1fc77" }}>
       <View>
-        <ItemList itemList={itemList} setItemList={setItemList} />
+        <ItemList
+          itemList={itemList}
+          setItemList={setItemList}
+          setSplashMessage={setSplashMessage}
+        />
+      </View>
+      <View style={[styles.flex1Center, { display: splashMessage }]}>
+        <Text style={styles.flex1CenterChild}>
+          Please use + Button to add items.
+        </Text>
       </View>
     </SafeAreaView>
   );

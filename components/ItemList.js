@@ -9,14 +9,11 @@ import {
   Text,
   Image
 } from "react-native";
-import Data from "./Data";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Swipeable } from "react-native-gesture-handler";
-import styles from "./Styles";
+
 import AddItem from "./AddItem";
 import Item from "./Item";
 
-export default function ItemList({ itemList, setItemList }) {
+export default function ItemList({ itemList, setItemList, setSplashMessage }) {
   const addedItem = (newItem) => {
     (newItem.id = Math.floor(Math.random() * 300)),
       setItemList([newItem, ...itemList]);
@@ -24,7 +21,7 @@ export default function ItemList({ itemList, setItemList }) {
 
   return (
     <>
-      <AddItem handleAdd={addedItem} />
+      <AddItem handleAdd={addedItem} setSplashMessage={setSplashMessage} />
       <FlatList
         data={itemList}
         keyExtractor={(itemList) => itemList.id}

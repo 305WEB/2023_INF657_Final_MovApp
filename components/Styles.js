@@ -1,57 +1,46 @@
 import StyleSheet from "react-native-media-query";
-import Constants from "expo-constants";
 
 const { ids, styles } = StyleSheet.create({
   mainContainerColumn1: {
-    marginTop: 20,
     flexDirection: "row",
     backgroundColor: "#fff",
     justifyContent: "space-around",
     flex: 1
-    // maxHeight: 150,
-    // height: 150
   },
   image: {
-    // flex: 1,
-    marginLeft: 10,
-    marginBottom: 10,
+    marginTop: 10,
+    marginBottom: 20,
+    marginLeft: 13,
     maxHeight: 150,
-    height: 150,
-    width: 150,
-    // "@media (min-width: 800px)": {
-    //   display: "none"
-    // },
-
+    height: 120,
+    width: 120,
     resizeMode: "contain"
   },
   card: {
     backgroundColor: "white",
     width: "100%",
-    // marginVertical: 10,
     position: "relative",
     zIndex: 1,
-    marginTop: 15
+    borderBottomColor: "#d3f1fb",
+    borderBottomWidth: 15
   },
   containerColumn3: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-around",
-    backgroundColor: "orangered",
     minHeight: 50
-    // width: "70%"
   },
   containerRow3: {
     flex: 3,
     flexDirection: "row",
-    // marginTop: 10,
     backgroundColor: "green"
   },
   spaceAround3: {
     flex: 1,
-    justifyContent: "space-around",
-    // margin: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingLeft: 10,
-    backgroundColor: "pink"
+    backgroundColor: "#fff"
   },
   show: {
     display: "flex"
@@ -60,59 +49,130 @@ const { ids, styles } = StyleSheet.create({
     display: "none"
   },
   deleteContainer: {
-    backgroundColor: "red",
+    backgroundColor: "#A8B053",
     width: 100,
     justifyContent: "center",
     alignItems: "center"
   },
   editContainer: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#CDD665",
     width: 100,
     justifyContent: "center",
     alignItems: "center"
   },
   inputText: {
-    color: "darkblue",
-    backgroundColor: "yellow",
-    maxHeight: 70,
-    paddingBottom: 8
+    paddingTop: 14
+  },
+  inputTextRight: {
+    paddingRight: 20,
+    paddingTop: 8,
+    fontSize: 12.5
   },
 
   elevation: {
     elevation: 20,
     shadowColor: "#52006A"
   },
-  description: {
-    paddingBottom: 20
-  },
   formField: {
     borderColor: "darkblue",
     width: "80%",
-    borderWidth: 1,
-    // borderRadius: 10,
+    borderWidth: 0.5,
     padding: 8,
-    marginLeft: 30,
-    marginBottom: 10
+    marginBottom: 10,
+    color: "darkblue",
+    backgroundColor: "#f9fec2"
   },
   addItemAreaHeader: {
-    // bottom: 60,
     width: "100%",
-    backgroundColor: "cyan",
-    height: 44,
-    borderBottomWidth: 1,
-    borderBottomColor: "darkblue",
+    backgroundColor: "#f1fc77",
+    height: 54,
     position: "fixed"
-
-    // right: 20,
-    // // position: "absolute",
-    // zIndex: 3
   },
   headerTitle: {
     width: "40%",
-    marginTop: 8,
-    marginLeft: 15,
+    marginTop: 10,
+    marginLeft: 20,
+    fontSize: 18,
     fontWeight: "bold",
-    color: "darkblue"
+    color: "#000"
+  },
+  flexRowEnd: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    alignContent: "normal"
+  },
+  flex1Center: {
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "nowrap",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center"
+  },
+  flex1CenterChild: {
+    marginTop: "50%",
+    flexBasis: "auto",
+    alignSelf: "center",
+    opacity: 0.4
+  },
+  selectedPhoto: {
+    width: 100,
+    height: 100,
+    marginVertical: 15,
+    borderWidth: 0.5,
+    borderColor: "darkblue",
+    backgroundColor: "#f9fec2"
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 28,
+    borderRadius: 4,
+    elevation: 3,
+    marginLeft: 15,
+    marginRight: 15
+  },
+  buttonText: {
+    fontSize: 13,
+    lineHeight: 21,
+    color: "#053B62",
+    borderWidth: 0.5,
+    borderColor: "darkblue",
+    paddingVertical: 7,
+    paddingHorizontal: 22,
+    borderRadius: 5,
+    backgroundColor: "#f9fec2"
+  },
+  descBoldText: {
+    fontWeight: "bold",
+    fontSize: 12.5,
+    paddingTop: 6,
+    paddingLeft: 15
+  },
+  itemPropBoldText: {
+    fontWeight: "bold",
+    fontSize: 12.5
+  },
+  description: {
+    fontSize: 12.5,
+    paddingBottom: 20,
+    paddingTop: 7,
+    backgroundColor: "#f9fec2",
+    paddingLeft: 15
+  },
+  itemProp: {
+    fontSize: 12.5
+  },
+  notBoldText: {
+    fontWeight: "normal"
+  },
+
+  descBack: {
+    backgroundColor: "#f9fec2"
   }
 });
 

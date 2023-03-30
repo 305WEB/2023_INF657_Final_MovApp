@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import {
   FlatList,
   StyleSheet,
@@ -12,7 +11,8 @@ import {
   Button,
   TextInput,
   Keyboard,
-  ImageBackground
+  ImageBackground,
+  Pressable
 } from "react-native";
 import Data from "./Data";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
@@ -20,7 +20,7 @@ import { Swipeable } from "react-native-gesture-handler";
 import styles from "./Styles";
 import * as ImagePicker from "expo-image-picker";
 
-export default function AddItem({ handleAdd }) {
+export default function AddItem({ handleAdd, setSplashMessage }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -42,6 +42,7 @@ export default function AddItem({ handleAdd }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const pickImageAsync = async () => {
+    Keyboard.dismiss();
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1
@@ -58,7 +59,7 @@ export default function AddItem({ handleAdd }) {
     selectedImage !== null
       ? { uri: selectedImage }
       : {
-          uri: "https://www.fortlauderdale.gov/Project/Contents/Main/_gfx/cmn/logo.svg"
+          uri: "https://www.fhsu.edu/_files/images/fort-hays-state-university.svg"
         };
 
   // ----------------------
@@ -80,7 +81,6 @@ export default function AddItem({ handleAdd }) {
       price: price,
       quantity: quantity,
       image: selectedImage
-      // image: require("./../assets/icon.png")
     };
 
     handleAdd(newItem);
@@ -90,7 +90,7 @@ export default function AddItem({ handleAdd }) {
     setQuantity("");
     // addNewItemBtn();
     setAddItemArea("none");
-    setAddItemAreaBtn("block");
+    setAddItemAreaBtn("flex");
 
     Keyboard.dismiss();
     // } else {
@@ -103,74 +103,31 @@ export default function AddItem({ handleAdd }) {
   const AddNewItemArea = () => {
     setAddItemArea("flex");
     setAddItemAreaBtn("none");
+    setSplashMessage("none");
   };
 
   const handleCloseAddItemArea = () => {
     setAddItemArea("none");
     setAddItemAreaBtn("flex");
+    setSplashMessage("flex");
   };
-
-  // const image = {
-  //   uri: "https://cdn6.f-cdn.com/contestentries/1397912/17268448/5b7b6950e0845_thumb900.jpg"
-  // };
-
-  // const addNewItemBtn = () => {
-  //   setAddItemBtn("none");
-  // };
-
-  // EDIT ----------------------------------------------------------
-
-  // const [itemEdit, setItemEdit] = useState({
-  //   item: {},
-  //   edit: false
-  // });
-
-  // useEffect(() => {
-
-  //   if (itemEdit.edit === true) {
-
-  //     setTitle(itemEdit.item.title);
-
-  //     setDescription(itemEdit.item.description);
-  //   }
-  // }, [itemEdit]);
-
-  // const editItem = (id, item) => {
-  //   setItemEdit({ id, item, edit: true });
-  // };
-
-  // const deleteItem = (id) => {
-  //   setItemList(itemList.filter((item) => item.id !== id));
-  // };
-
-  //   <ImageBackground
-  //   source={image}
-  //  resizeMode="contain"
-  //  style={[styles.addItemAreaHeader]}
-  //  imageStyle={{
-  //    resizeMode: "cover",
-  //    alignSelf: "flex-start"
-  //  }}
-  // >
 
   return (
     <View>
       <View style={styles.addItemAreaHeader}>
-        <Text style={styles.headerTitle}>Shopping App</Text>
-        {/* <Button title="Add New Item" onPress={AddNewItemArea}></Button> */}
+        <Text style={styles.headerTitle}>ShoppingList</Text>
 
         <FontAwesome
           name="plus"
-          size={30}
-          color="darkblue"
+          size={29}
+          color="#000"
           onPress={AddNewItemArea}
           style={{
             display: addItemAreaBtn,
-            // position: "fixed",
             alignSelf: "flex-end",
             zIndex: 5,
-            marginTop: "-6%",
-            right: 25,
+            marginTop: -26,
+            right: 17,
             width: 50,
             height: 50
           }}
@@ -178,49 +135,78 @@ export default function AddItem({ handleAdd }) {
       </View>
 
       {/* addItemArea below refers to state var */}
-      <View style={{ display: addItemArea, marginTop: 30 }}>
-        <TextInput
-          style={[styles.formField]}
-          onChangeText={(value) => setTitle(value)}
-          type="text"
-          placeholder="    Item Title"
-          value={title}
-        />
+      <View
+        style={{
+          display: addItemArea,
+          marginTop: 30,
+          backgroundColor: "#f6fda9",
+          // backgroundColor: "#effda9",
+          paddingTop: 40
+        }}
+      >
+        <View style={styles.flex1Center}>
+          <TextInput
+            style={styles.formField}
+            placeholderTextColor="#053B62"
+            onChangeText={(value) => setTitle(value)}
+            type="text"
+            placeholder="    Item Title"
+            value={title}
+          />
 
-        <TextInput
-          style={[styles.formField]}
-          onChangeText={(value) => setDescription(value)}
-          type="text"
-          placeholder="    Description (+5 Chars)"
-          value={description}
-        />
+          <TextInput
+            style={styles.formField}
+            placeholderTextColor="#053B62"
+            onChangeText={(value) => setDescription(value)}
+            type="text"
+            placeholder="    Description (+5 Chars)"
+            value={description}
+          />
 
-        <TextInput
-          style={[styles.formField]}
-          onChangeText={(value) => setPrice(value)}
-          placeholder="    Item Price"
-          value={price}
-          keyboardType="numeric"
-        />
+          <TextInput
+            style={styles.formField}
+            placeholderTextColor="#053B62"
+            onChangeText={(value) => setPrice(value)}
+            placeholder="    Item Price"
+            value={price}
+            keyboardType="numeric"
+          />
 
-        <TextInput
-          style={[styles.formField]}
-          onChangeText={(value) => setQuantity(value)}
-          placeholder="    Quantity"
-          value={quantity}
-          keyboardType="numeric"
-        />
+          <TextInput
+            style={styles.formField}
+            placeholderTextColor="#053B62"
+            onChangeText={(value) => setQuantity(value)}
+            placeholder="    Quantity"
+            value={quantity}
+            keyboardType="numeric"
+          />
 
-        <Button title="Add Image" onPress={pickImageAsync}></Button>
+          <Pressable
+            style={[styles.button, { marginTop: 13 }]}
+            onPress={pickImageAsync}
+          >
+            <Text style={styles.buttonText}>Add Image</Text>
+          </Pressable>
 
-        <Image
-          source={imageSource}
-          resizeMode="contain"
-          style={{ width: 100, height: 100 }}
-        />
+          <Image
+            source={imageSource}
+            resizeMode="contain"
+            style={styles.selectedPhoto}
+          />
+        </View>
 
-        <Button onPress={handleSubmit} title="Add Item"></Button>
-        <Button onPress={handleCloseAddItemArea} title="Cancel"></Button>
+        <View style={styles.flexRowEnd}>
+          <Pressable style={styles.button} onPress={handleCloseAddItemArea}>
+            <Text style={[styles.buttonText, { marginBottom: 50 }]}>
+              Cancel
+            </Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={handleSubmit}>
+            <Text style={[styles.buttonText, { marginBottom: 50 }]}>
+              Submit
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
