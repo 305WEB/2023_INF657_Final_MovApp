@@ -12,7 +12,8 @@ import {
   TextInput,
   Keyboard,
   ImageBackground,
-  Pressable
+  Pressable,
+  TouchableWithoutFeedback
 } from "react-native";
 import Data from "./Data";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
@@ -69,35 +70,35 @@ export default function AddItem({ handleAdd, setSplashMessage }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // if (
-    //   title.length !== 0 &&
-    //   price.length !== 0 &&
-    //   quantity.length !== 0 &&
-    //   description.trim().length > 5
-    // ) {
-    const newItem = {
-      title: title,
-      description: description,
-      price: price,
-      quantity: quantity,
-      image: selectedImage
-    };
+    if (
+      title.length !== 0 &&
+      price.length !== 0 &&
+      quantity.length !== 0 &&
+      description.trim().length > 5
+    ) {
+      const newItem = {
+        title: title,
+        description: description,
+        price: price,
+        quantity: quantity,
+        image: selectedImage
+      };
 
-    handleAdd(newItem);
-    setTitle("");
-    setDescription("");
-    setPrice("");
-    setQuantity("");
-    // addNewItemBtn();
-    setAddItemArea("none");
-    setAddItemAreaBtn("flex");
+      handleAdd(newItem);
+      setTitle("");
+      setDescription("");
+      setPrice("");
+      setQuantity("");
+      setAddItemArea("none");
+      setSelectedImage(null);
+      setAddItemAreaBtn("flex");
 
-    Keyboard.dismiss();
-    // } else {
-    //   alert(
-    //     "Please enter more than 5 Characters in description and complete all fields."
-    //   );
-    // }
+      Keyboard.dismiss();
+    } else {
+      alert(
+        "Please enter more than 5 Characters in description and complete all fields."
+      );
+    }
   };
 
   const AddNewItemArea = () => {
@@ -144,56 +145,58 @@ export default function AddItem({ handleAdd, setSplashMessage }) {
           paddingTop: 40
         }}
       >
-        <View style={styles.flex1Center}>
-          <TextInput
-            style={styles.formField}
-            placeholderTextColor="#053B62"
-            onChangeText={(value) => setTitle(value)}
-            type="text"
-            placeholder="    Item Title"
-            value={title}
-          />
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.flex1Center}>
+            <TextInput
+              style={styles.formField}
+              placeholderTextColor="#053B62"
+              onChangeText={(value) => setTitle(value)}
+              type="text"
+              placeholder="    Item Title"
+              value={title}
+            />
 
-          <TextInput
-            style={styles.formField}
-            placeholderTextColor="#053B62"
-            onChangeText={(value) => setDescription(value)}
-            type="text"
-            placeholder="    Description (+5 Chars)"
-            value={description}
-          />
+            <TextInput
+              style={styles.formField}
+              placeholderTextColor="#053B62"
+              onChangeText={(value) => setDescription(value)}
+              type="text"
+              placeholder="    Description (+5 Chars)"
+              value={description}
+            />
 
-          <TextInput
-            style={styles.formField}
-            placeholderTextColor="#053B62"
-            onChangeText={(value) => setPrice(value)}
-            placeholder="    Item Price"
-            value={price}
-            keyboardType="numeric"
-          />
+            <TextInput
+              style={styles.formField}
+              placeholderTextColor="#053B62"
+              onChangeText={(value) => setPrice(value)}
+              placeholder="    Item Price"
+              value={price}
+              keyboardType="numeric"
+            />
 
-          <TextInput
-            style={styles.formField}
-            placeholderTextColor="#053B62"
-            onChangeText={(value) => setQuantity(value)}
-            placeholder="    Quantity"
-            value={quantity}
-            keyboardType="numeric"
-          />
+            <TextInput
+              style={styles.formField}
+              placeholderTextColor="#053B62"
+              onChangeText={(value) => setQuantity(value)}
+              placeholder="    Quantity"
+              value={quantity}
+              keyboardType="numeric"
+            />
 
-          <Pressable
-            style={[styles.button, { marginTop: 13 }]}
-            onPress={pickImageAsync}
-          >
-            <Text style={styles.buttonText}>Add Image</Text>
-          </Pressable>
+            <Pressable
+              style={[styles.button, { marginTop: 13 }]}
+              onPress={pickImageAsync}
+            >
+              <Text style={styles.buttonText}>Add Image</Text>
+            </Pressable>
 
-          <Image
-            source={imageSource}
-            resizeMode="contain"
-            style={styles.selectedPhoto}
-          />
-        </View>
+            <Image
+              source={imageSource}
+              resizeMode="contain"
+              style={styles.selectedPhoto}
+            />
+          </View>
+        </TouchableWithoutFeedback>
 
         <View style={styles.flexRowEnd}>
           <Pressable style={styles.button} onPress={handleCloseAddItemArea}>

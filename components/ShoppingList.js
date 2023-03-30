@@ -12,7 +12,7 @@ export default function ShoppingList(
   image,
   quantity
 ) {
-  const [itemList, setItemList] = useState(Data);
+  const [itemList, setItemList] = useState([]);
   const [splashMessage, setSplashMessage] = useState("flex");
 
   return (
