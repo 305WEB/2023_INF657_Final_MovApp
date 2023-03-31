@@ -132,13 +132,19 @@ export default function Item({
 
   return (
     <>
-      <View style={{ height: 24 }}></View>
+      <View style={{ height: 18 }}></View>
       <Swipeable
         ref={swipeableRef}
         renderRightActions={() => (
           <View style={styles.deleteContainer}>
             <TouchableWithoutFeedback onPress={() => deleteItem(id)}>
-              <MaterialCommunityIcons name="trash-can" size={34} color="red" />
+              <MaterialCommunityIcons
+                name="trash-can"
+                size={34}
+                color="red"
+                style={styles.iconDel}
+              ></MaterialCommunityIcons>
+              <Text style={styles.iconText}>Delete</Text>
             </TouchableWithoutFeedback>
           </View>
         )}
@@ -146,6 +152,7 @@ export default function Item({
           <View style={styles.editContainer}>
             <TouchableWithoutFeedback onPress={() => handleEdit(id)}>
               <AntDesign name="edit" size={34} color="#393c1c" />
+              <Text style={styles.iconText}>Edit</Text>
             </TouchableWithoutFeedback>
           </View>
         )}
@@ -166,7 +173,7 @@ export default function Item({
                 style={[
                   styles.spaceAround3,
                   styles.inputText,
-                  styles.descBoldText
+                  styles.titleBoldText
                 ]}
               >
                 {title}
@@ -203,6 +210,8 @@ export default function Item({
           marginTop: 10,
           backgroundColor: "#f6fda9",
           paddingTop: 40
+          // borderTopColor: "darkblue",
+          // borderWidth: 0.5
         }}
       >
         <View style={styles.flex1Center}>
@@ -248,7 +257,7 @@ export default function Item({
 
           <Image
             source={imageSource}
-            resizeMode="contain"
+            resizeMode="cover"
             style={styles.selectedPhoto}
           />
         </View>

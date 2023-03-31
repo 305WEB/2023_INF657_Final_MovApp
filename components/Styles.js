@@ -11,9 +11,12 @@ const { ids, styles } = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     marginLeft: 13,
-    maxHeight: 150,
     height: 120,
     width: 120,
+    "@media (min-width: 568px)": {
+      height: 150,
+      width: 150
+    },
     resizeMode: "contain"
   },
   card: {
@@ -47,6 +50,12 @@ const { ids, styles } = StyleSheet.create({
   },
   noShow: {
     display: "none"
+  },
+  iconText: {
+    marginTop: 5
+  },
+  iconDel: {
+    marginLeft: 10
   },
   deleteContainer: {
     backgroundColor: "#A8B053",
@@ -92,6 +101,9 @@ const { ids, styles } = StyleSheet.create({
     width: "40%",
     marginTop: 10,
     marginLeft: 20,
+    "@media (min-width: 568px)": {
+      marginLeft: 30
+    },
     fontSize: 18,
     fontWeight: "bold",
     color: "#000"
@@ -150,22 +162,35 @@ const { ids, styles } = StyleSheet.create({
   descBoldText: {
     fontWeight: "bold",
     fontSize: 12.5,
-    paddingTop: 6,
-    paddingLeft: 15
+    paddingTop: 8,
+    // marginTop: 7,
+    paddingLeft: 14
+  },
+  titleBoldText: {
+    fontWeight: "bold",
+    fontSize: 12.5,
+    paddingTop: 8,
+    marginTop: 8,
+    paddingLeft: 14
   },
   itemPropBoldText: {
     fontWeight: "bold",
-    fontSize: 12.5
+    fontSize: 12.5,
+    marginTop: 8
   },
   description: {
     fontSize: 12.5,
     paddingBottom: 20,
-    paddingTop: 7,
+    paddingTop: 8,
     backgroundColor: "#f9fec2",
-    paddingLeft: 15
+    paddingLeft: 15,
+    // color: "#565a29"
+    color: "#666b31"
   },
   itemProp: {
-    fontSize: 12.5
+    fontSize: 12.5,
+    color: "#666b31",
+    marginTop: -5
   },
   notBoldText: {
     fontWeight: "normal"

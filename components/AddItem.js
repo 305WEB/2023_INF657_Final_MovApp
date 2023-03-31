@@ -141,8 +141,9 @@ export default function AddItem({ handleAdd, setSplashMessage }) {
           display: addItemArea,
           marginTop: 30,
           backgroundColor: "#f6fda9",
-          // backgroundColor: "#effda9",
           paddingTop: 40
+          // borderTopColor: "darkblue",
+          // borderWidth: 0.5
         }}
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -192,7 +193,7 @@ export default function AddItem({ handleAdd, setSplashMessage }) {
 
             <Image
               source={imageSource}
-              resizeMode="contain"
+              resizeMode="cover"
               style={styles.selectedPhoto}
             />
           </View>
