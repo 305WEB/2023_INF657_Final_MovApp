@@ -146,8 +146,7 @@ const { ids, styles } = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     marginLeft: 15,
-    marginRight: 15,
-    alignContent: "center"
+    marginRight: 15
   },
   buttonText: {
     fontSize: 13,
@@ -158,8 +157,7 @@ const { ids, styles } = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 22,
     borderRadius: 5,
-    backgroundColor: "#f9fec2",
-
+    backgroundColor: "#f9fec2"
   },
   descBoldText: {
     fontWeight: "bold",
@@ -197,19 +195,10 @@ const { ids, styles } = StyleSheet.create({
   notBoldText: {
     fontWeight: "normal"
   },
+
   descBack: {
     backgroundColor: "#f9fec2"
-  },
-  signImage: {
-    width: 80,
-    height: 80,
-  },
-   headingText: {
-    fontWeight: "bold",
-    fontSize: 14.5,
-    marginTop: 8,
-   marginVertical: 20
-  },
+  }
 });
 
 export default styles;

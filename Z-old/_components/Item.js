@@ -162,7 +162,7 @@ export default function Item({
           onPress={() => console.log("Item Selected", itemList)}
         >
           <>
-            <View style={styles.mainContainerColumn1}>
+            <View style={[styles.mainContainerColumn1]}>
               <Image
                 style={styles.image}
                 source={{ uri: `${image}` }}
@@ -198,7 +198,7 @@ export default function Item({
               <Text style={[styles.descBoldText, styles.descBack]}>
                 Description:
               </Text>
-              <Text style={styles.description}>{description}</Text>
+              <Text style={[styles.description]}>{description}</Text>
             </View>
           </>
         </TouchableHighlight>
