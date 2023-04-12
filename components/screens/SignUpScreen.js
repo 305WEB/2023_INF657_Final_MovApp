@@ -25,8 +25,10 @@ export default function SignUpScreen() {
   // USER AUTH
   const { user, createUser } = UserAuth();
 
+  // REGISTER USER
+
   const onRegister = async (e) => {
-    console.warn("Use Signed up");
+    console.warn("User Signed up");
     e.preventDefault();
     const data = { username, email, password, confirmpassword };
     console.log(data);
@@ -34,7 +36,7 @@ export default function SignUpScreen() {
       await createUser(email, password).then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        navigation.navigate("TaskList");
+        navigation.navigate("Sing In");
       });
     } catch (err) {
       console.log(err);
@@ -43,8 +45,6 @@ export default function SignUpScreen() {
     setEmail("");
     setPassword("");
     setConfirmPassword("");
-
-    navigation.navigate("Sing In");
   };
 
   return (

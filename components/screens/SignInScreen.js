@@ -30,12 +30,10 @@ export default function SignInScreen() {
     try {
       await signIn(email, password);
       console.log("user signedIn");
-      navigation.navigate("AddTask");
+      navigation.navigate("Home");
     } catch (err) {
       console.log(err);
     }
-
-    navigation.navigate("Home");
   };
 
   // FORGOT PASS
