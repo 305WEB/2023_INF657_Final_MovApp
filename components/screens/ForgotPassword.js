@@ -6,7 +6,7 @@ import {
   useWindowDimensions
 } from "react-native";
 import React, { useState } from "react";
-import ImageIcon from "../../assets/snack-icon.png";
+import ImageIcon from "../../assets/shopping_cart_checkout.png";
 import CustomInput from "../shared/CustomInput";
 import CustomButton from "../shared/CustomButton";
 import styles from "../Styles";
@@ -27,7 +27,7 @@ export default function ForgotPassword() {
   };
 
   const onHandleBackSingIn = () => {
-    console.warn("Sending user back to sing in screen");
+    // console.warn("Sending user back to sing in screen");
 
     navigation.navigate("Sing In");
   };

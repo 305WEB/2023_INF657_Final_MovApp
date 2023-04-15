@@ -6,7 +6,7 @@ import {
   useWindowDimensions
 } from "react-native";
 import React, { useState } from "react";
-import ImageIcon from "../../assets/snack-icon.png";
+import ImageIcon from "../../assets/shopping_cart_checkout.png";
 import CustomInput from "../shared/CustomInput";
 import CustomButton from "../shared/CustomButton";
 import styles from "../Styles";
@@ -17,21 +17,26 @@ import ShoppingList from "../ShoppingList";
 export default function SignInScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const { height } = useWindowDimensions();
+  const { signIn, logOut } = UserAuth();
   const navigation = useNavigation();
 
   // SIGN IN
 
   const onSingIn = async (e) => {
-    console.warn("Sign In Pressed");
+    // console.warn("Sign In Pressed");
 
     e.preventDefault();
     try {
       await signIn(email, password);
-      console.log("user signedIn");
+      // console.log("user signedIn");
       navigation.navigate("Home");
     } catch (err) {
+      alert(
+        "Please enter valid user email and password or create a new account. Thank you."
+      );
       console.log(err);
     }
   };
@@ -39,7 +44,7 @@ export default function SignInScreen() {
   // FORGOT PASS
 
   const OnForgotPassword = () => {
-    console.warn("Forgot Password Pressed");
+    // console.warn("Forgot Password Pressed");
     navigation.navigate("Forgot Pass");
   };
 
@@ -56,7 +61,7 @@ export default function SignInScreen() {
   };
 
   const OnSingUp = () => {
-    console.warn("Sign Up is pressed");
+    // console.warn("Sign Up is pressed");
 
     navigation.navigate("Sing Up");
   };
@@ -69,11 +74,7 @@ export default function SignInScreen() {
         resizeMode="contain"
       />
       <View style={{ height: 60 }}></View>
-      <CustomInput
-        placeholder="User Name"
-        value={username}
-        setValue={setUsername}
-      />
+      <CustomInput placeholder="User Email" value={email} setValue={setEmail} />
       <CustomInput
         placeholder="Password"
         value={password}
@@ -82,12 +83,12 @@ export default function SignInScreen() {
       />
       <CustomButton text="Sign In" onPress={onSingIn} />
       <CustomButton
-        bgColor="#8ed1fc"
+        bgColor="#f9e5b2"
         text="Forgot Password"
         onPress={OnForgotPassword}
       />
 
-      <CustomButton bgColor="#8ed1fc" text="Log Out" onPress={OnLogOut} />
+      <CustomButton bgColor="#d1ebf8" text="Log Out" onPress={OnLogOut} />
 
       <CustomButton
         bgColor="white"

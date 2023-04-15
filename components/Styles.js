@@ -158,8 +158,7 @@ const { ids, styles } = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 22,
     borderRadius: 5,
-    backgroundColor: "#f9fec2",
-
+    backgroundColor: "#f9fec2"
   },
   descBoldText: {
     fontWeight: "bold",
@@ -201,15 +200,16 @@ const { ids, styles } = StyleSheet.create({
     backgroundColor: "#f9fec2"
   },
   signImage: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
+    borderRadius: 15
   },
-   headingText: {
+  headingText: {
     fontWeight: "bold",
     fontSize: 14.5,
     marginTop: 8,
-   marginVertical: 20
-  },
+    marginVertical: 20
+  }
 });
 
 export default styles;
