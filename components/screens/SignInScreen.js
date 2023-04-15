@@ -54,7 +54,7 @@ export default function SignInScreen() {
     try {
       await logOut();
       alert("You are logged out");
-      navigation.navigate("SignIn");
+      navigation.navigate("Sing In");
     } catch (err) {
       console.log(err);
     }
