@@ -3,7 +3,9 @@ import {
   StyleSheet,
   Text,
   View,
-  useWindowDimensions
+  useWindowDimensions,
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native";
 import React, { useState } from "react";
 import ImageIcon from "../../assets/shopping_cart_checkout.png";
@@ -12,7 +14,7 @@ import CustomButton from "../shared/CustomButton";
 import styles from "../Styles";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
-import ShoppingList from "../ShoppingList";
+import ShoppingList from "../_ShoppingList";
 
 export default function SignInScreen() {
   const [username, setUsername] = useState("");
@@ -63,10 +65,11 @@ export default function SignInScreen() {
   const OnSingUp = () => {
     // console.warn("Sign Up is pressed");
 
-    navigation.navigate("Sing Up");
+    navigation.navigate("Sign Up");
   };
 
   return (
+    // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={[{ backgroundColor: "#f1fc77", flex: 1 }, styles.flex1Center]}>
       <Image
         source={ImageIcon}
@@ -96,5 +99,6 @@ export default function SignInScreen() {
         onPress={OnSingUp}
       />
     </View>
+    // </TouchableWithoutFeedback>
   );
 }

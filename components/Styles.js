@@ -181,7 +181,7 @@ const { ids, styles } = StyleSheet.create({
   },
   description: {
     fontSize: 12.5,
-    paddingBottom: 20,
+    paddingBottom: 15,
     paddingTop: 8,
     backgroundColor: "#f9fec2",
     paddingLeft: 15,
@@ -209,6 +209,18 @@ const { ids, styles } = StyleSheet.create({
     fontSize: 14.5,
     marginTop: 8,
     marginVertical: 20
+  },
+  addToCartWrap: {
+    display: "flex",
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    paddingHorizontal: 20,
+    backgroundColor: "#f9fec2"
+  },
+  addToCartBtn: {
+    color: "orangered",
+    backgroundColor: "#f9fec2",
+    marginBottom: 15
   }
 });
 

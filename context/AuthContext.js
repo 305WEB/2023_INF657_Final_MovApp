@@ -15,21 +15,20 @@ export const AuthContextProvider = ({ children }) => {
 
   // CREATE USER
 
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const createUser = (email, password, displayName) => {
+    return createUserWithEmailAndPassword(auth, email, password, displayName);
   };
 
   // UPDATE USER
 
-  const updateUser = (name, email) => {
-    return updateProfile(auth.currentUser, {
+  const updateUser = async (name, email) => {
+    await updateProfile(auth.currentUser, {
       name,
       email,
       displayName: name
-    }).then(() => {
-      console.log(auth.currentUser.displayName, auth.currentUser.email);
-      alert("Your Profile has been updated");
     });
+    console.log(auth.currentUser.displayName, auth.currentUser.email);
+    alert("Your Profile has been updated");
   };
 
   // SIGN IN
@@ -39,7 +38,6 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   // LOG OUT
-
   const logOut = () => {
     return signOut(auth);
   };

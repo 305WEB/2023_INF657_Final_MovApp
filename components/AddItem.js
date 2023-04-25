@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -20,8 +20,13 @@ import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 import styles from "./Styles";
 import * as ImagePicker from "expo-image-picker";
+import ItemContext from "../context/ItemContext";
 
-export default function AddItem({ handleAdd, setSplashMessage }) {
+export default function AddItem() {
+  //
+  const { addItem } = useContext(ItemContext);
+  // const { pickImageAsync } = useContext(ItemContext);
+  //
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -84,7 +89,8 @@ export default function AddItem({ handleAdd, setSplashMessage }) {
         image: selectedImage
       };
 
-      handleAdd(newItem);
+      // handleAdd(newItem);
+      addItem(newItem);
       setTitle("");
       setDescription("");
       setPrice("");
@@ -104,7 +110,7 @@ export default function AddItem({ handleAdd, setSplashMessage }) {
   const AddNewItemArea = () => {
     setAddItemArea("flex");
     setAddItemAreaBtn("none");
-    setSplashMessage("none");
+    // setSplashMessage("none");
   };
 
   const handleCloseAddItemArea = () => {
@@ -114,39 +120,40 @@ export default function AddItem({ handleAdd, setSplashMessage }) {
   };
 
   return (
-    <View>
-      <View style={styles.addItemAreaHeader}>
-        <Text style={styles.headerTitle}>ShoppingList</Text>
+    <SafeAreaView>
+      <View>
+        <View style={styles.addItemAreaHeader}>
+          <Text style={styles.headerTitle}>Shopping List</Text>
 
-        <FontAwesome
-          name="plus"
-          size={29}
-          color="#000"
-          onPress={AddNewItemArea}
+          <FontAwesome
+            name="plus"
+            size={29}
+            color="#000"
+            onPress={AddNewItemArea}
+            style={{
+              display: addItemAreaBtn,
+              alignSelf: "flex-end",
+              zIndex: 5,
+              marginTop: -26,
+              right: 17,
+              width: 50,
+              height: 50
+            }}
+          />
+        </View>
+
+        {/* addItemArea below refers to state var */}
+        <View
           style={{
-            display: addItemAreaBtn,
-            alignSelf: "flex-end",
-            zIndex: 5,
-            marginTop: -26,
-            right: 17,
-            width: 50,
-            height: 50
+            display: addItemArea,
+            marginTop: 30,
+            backgroundColor: "#f6fda9",
+            paddingTop: 40
+            // borderTopColor: "darkblue",
+            // borderWidth: 0.5
           }}
-        />
-      </View>
-
-      {/* addItemArea below refers to state var */}
-      <View
-        style={{
-          display: addItemArea,
-          marginTop: 30,
-          backgroundColor: "#f6fda9",
-          paddingTop: 40
-          // borderTopColor: "darkblue",
-          // borderWidth: 0.5
-        }}
-      >
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        >
+          {/* <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> */}
           <View style={styles.flex1Center}>
             <TextInput
               style={styles.formField}
@@ -197,21 +204,22 @@ export default function AddItem({ handleAdd, setSplashMessage }) {
               style={styles.selectedPhoto}
             />
           </View>
-        </TouchableWithoutFeedback>
+          {/* </TouchableWithoutFeedback> */}
 
-        <View style={styles.flexRowEnd}>
-          <Pressable style={styles.button} onPress={handleCloseAddItemArea}>
-            <Text style={[styles.buttonText, { marginBottom: 50 }]}>
-              Cancel
-            </Text>
-          </Pressable>
-          <Pressable style={styles.button} onPress={handleSubmit}>
-            <Text style={[styles.buttonText, { marginBottom: 50 }]}>
-              Submit
-            </Text>
-          </Pressable>
+          <View style={styles.flexRowEnd}>
+            <Pressable style={styles.button} onPress={handleCloseAddItemArea}>
+              <Text style={[styles.buttonText, { marginBottom: 50 }]}>
+                Cancel
+              </Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={handleSubmit}>
+              <Text style={[styles.buttonText, { marginBottom: 50 }]}>
+                Submit
+              </Text>
+            </Pressable>
+          </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

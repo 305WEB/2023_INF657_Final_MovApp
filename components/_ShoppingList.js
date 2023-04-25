@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as React from "react";
 import { View, SafeAreaView, Text } from "react-native";
 import Data from "./Data";
 import styles from "./Styles";
 import ItemList from "./ItemList";
+import ItemContext from "../context/ItemContext";
 
 export default function ShoppingList(
   title,
@@ -12,6 +13,10 @@ export default function ShoppingList(
   image,
   quantity
 ) {
+  const { itemListFB, editTask, updateTask, deleteTask } =
+    useContext(ItemContext);
+
+  // const [itemList, setItemsList] = useState(itemListFB);
   const [itemList, setItemList] = useState(Data);
   const [splashMessage, setSplashMessage] = useState("flex");
 

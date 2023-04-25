@@ -11,17 +11,16 @@ import {
   Keyboard,
   Pressable
 } from "react-native";
-import Data from "./Data";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
-import styles from "./Styles";
+import styles from "../Styles";
 import React, { useRef } from "react";
 import * as ImagePicker from "expo-image-picker";
-import ItemContext from "../context/ItemContext";
-import CustomButton from "./shared/CustomButton";
+import ItemContext from "../../context/ItemContext";
+import CustomButton from "../shared/CustomButton";
 
-export default function Item({
+export default function CartItem({
   id,
   image,
   title,
@@ -35,8 +34,11 @@ export default function Item({
     itemListFB,
     updateItem,
     editItem,
+    editCartItem,
+    updateCartItem,
     itemEdit,
     deleteItem,
+    deleteCartItem,
     addItemToCart
   } = useContext(ItemContext);
   // Add Item Area
@@ -94,13 +96,13 @@ export default function Item({
 
   // EDIT
 
-  const handleEdit = (id, image, title, price, quantity, description) => {
+  const handleCartItemEdit = (id, quantity) => {
     // const handleEdit = (id) => {
     setAddEditItemArea("flex");
     setEditingId(id);
     // setBackColor("cyan");
 
-    editItem(id, image, title, price, quantity, description);
+    editCartItem(id, quantity);
 
     swipeableRef.current.close();
   };
@@ -119,16 +121,16 @@ export default function Item({
 
   //  EDIT SUBMIT
 
-  const handleUpdateItem = () => {
+  const handleUpdateCartItem = () => {
     // e.preventDefault();
 
     // if (editingId) {
-    updateItem(id, {
-      title: newTitle,
-      description: newDescription,
-      price: newPrice,
+    updateCartItem(id, {
+      title: title,
+      description: description,
+      price: price,
       quantity: newQuantity,
-      image: selectedImage
+      image: image
     });
     // setItemList(newItemList);
     setEditingId(null);
@@ -141,24 +143,6 @@ export default function Item({
     // }
   };
 
-  // ADD TO CART
-
-  const handleAddToCart = () => {
-    console.log("Add to Cart");
-
-    const newItem = {
-      title: title,
-      description: description,
-      price: price,
-      quantity: quantity,
-      image: image
-    };
-
-    // handleAdd(newItem);
-    addItemToCart(newItem);
-    deleteItem(id);
-  };
-
   return (
     <>
       <View style={{ height: 18 }}></View>
@@ -166,7 +150,7 @@ export default function Item({
         ref={swipeableRef}
         renderRightActions={() => (
           <View style={styles.deleteContainer}>
-            <TouchableWithoutFeedback onPress={() => deleteItem(id)}>
+            <TouchableWithoutFeedback onPress={() => deleteCartItem(id)}>
               <MaterialCommunityIcons
                 name="trash-can"
                 size={34}
@@ -181,7 +165,15 @@ export default function Item({
           <View style={styles.editContainer}>
             <TouchableWithoutFeedback
               onPress={
-                () => handleEdit(id, image, title, price, quantity, description)
+                () =>
+                  handleCartItemEdit(
+                    id,
+                    image,
+                    title,
+                    price,
+                    quantity,
+                    description
+                  )
                 // handleEdit(id)
               }
             >
@@ -234,11 +226,6 @@ export default function Item({
               </Text>
               <Text style={styles.description}>{description}</Text>
             </View>
-            <View style={styles.addToCartWrap}>
-              <Text style={styles.addToCartBtn} onPress={handleAddToCart}>
-                Add to Cart
-              </Text>
-            </View>
           </>
         </TouchableHighlight>
       </Swipeable>
@@ -254,7 +241,7 @@ export default function Item({
         }}
       >
         <View style={styles.flex1Center}>
-          <TextInput
+          {/* <TextInput
             style={styles.formField}
             placeholderTextColor="#053B62"
             value={newTitle}
@@ -276,7 +263,7 @@ export default function Item({
             placeholder="   New Price"
             value={newPrice}
             keyboardType="numeric"
-          />
+          /> */}
 
           <TextInput
             style={styles.formField}
@@ -287,18 +274,18 @@ export default function Item({
             keyboardType="numeric"
           />
 
-          <Pressable
+          {/* <Pressable
             style={[styles.button, { marginTop: 13 }]}
             onPress={pickImageAsync}
           >
             <Text style={styles.buttonText}>Edit Image</Text>
-          </Pressable>
+          </Pressable> */}
 
-          <Image
-            source={imageSource}
+          {/* <Image
+            source={image}
             resizeMode="cover"
             style={styles.selectedPhoto}
-          />
+          /> */}
         </View>
         <View style={styles.flexRowEnd}>
           <Pressable style={styles.button} onPress={handleCloseAddItemArea}>
@@ -307,7 +294,7 @@ export default function Item({
             </Text>
           </Pressable>
           {/* <Pressable style={styles.button} onPress={handleSubmit}> */}
-          <Pressable style={styles.button} onPress={handleUpdateItem}>
+          <Pressable style={styles.button} onPress={handleUpdateCartItem}>
             <Text style={[styles.buttonText, { marginBottom: 50 }]}>
               Submit
             </Text>

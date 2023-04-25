@@ -1,5 +1,9 @@
 import React from "react";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useContext, useState } from "react";
+import {
+  ScrollView,
+  TouchableWithoutFeedback
+} from "react-native-gesture-handler";
 import {
   FlatList,
   StyleSheet,
@@ -12,29 +16,25 @@ import {
 
 import AddItem from "./AddItem";
 import Item from "./Item";
+import ItemContext from "../context/ItemContext";
 
-export default function ItemList({ itemList, setItemList, setSplashMessage }) {
-  const addedItem = (newItem) => {
-    (newItem.id = Math.floor(Math.random() * 300)),
-      setItemList([newItem, ...itemList]);
-  };
+export default function ItemsList({ setSplashMessage }) {
+  const { itemListFB } = useContext(ItemContext);
 
   return (
     <>
-      <AddItem handleAdd={addedItem} setSplashMessage={setSplashMessage} />
+      <AddItem />
       <FlatList
-        data={itemList}
-        keyExtractor={(itemList) => itemList.id}
+        data={itemListFB}
+        keyExtractor={(itemListFB) => itemListFB.id}
         renderItem={({ item }) => (
           <Item
             id={item.id}
-            image={item.image}
-            title={item.title}
-            price={item.price}
-            quantity={item.quantity}
-            description={item.description}
-            itemList={itemList}
-            setItemList={setItemList}
+            image={item.data.image}
+            title={item.data.title}
+            price={item.data.price}
+            quantity={item.data.quantity}
+            description={item.data.description}
           />
         )}
       />

@@ -33,10 +33,10 @@ export default function SignUpScreen() {
     const data = { username, email, password, confirmpassword };
     console.log(data);
     try {
-      await createUser(email, password).then((userCredential) => {
+      await createUser(email, password, username).then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        navigation.navigate("Sing In");
+        navigation.navigate("Sign In");
       });
     } catch (err) {
       console.log(err);
