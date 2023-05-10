@@ -1,28 +1,33 @@
+import "react-native-gesture-handler";
 import react from "react";
 import { View, Text } from "react-native";
 import styles from "../components/Styles";
-import ShoppingList from "../components/_ShoppingList";
 import ProfilePage from "../components/screens/ProfilePage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AddItem from "../components/AddItem";
 import SignInScreen from "../components/screens/SignInScreen";
 import SignUpScreen from "../components/screens/SignUpScreen";
-import ShoppingCart from "../components/screens/ShoppingCart";
+import FavoritesList from "../components/screens/FavoritesList";
 import ItemList from "../components/ItemList";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
+import MovieDetail from "../components/screens/MovieDetail";
+import Navigation from "./Navigation";
 {
   /* <MaterialCommunityIcons name="material-design" size={24} color="black" /> */
 }
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function MyTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#f1fc77" },
+        tabBarStyle: { backgroundColor: "#CBE7FC" },
         tabBarActiveTintColor: "#0693e3"
         // tabBarActiveTintColor: "#A8B053"
       }}
@@ -46,20 +51,31 @@ export default function MyTabs() {
         }}
       />
       {/* <Tab.Screen
-        name="Add Item"
-        component={AddItem}
+        name="Movie Detail"
+        component={MovieDetail}
         options={{
+          tabBarButton: (props) => null, // Removes Item from bottom bar
+          tabBarIcon: ({ size }) => (
+            <MaterialCommunityIcons name="home" color={"black"} size={size} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Navigation"
+        component={Navigation}
+        options={{
+          tabBarButton: (props) => null, // Removes Item from bottom bar
           tabBarIcon: ({ size }) => (
             <MaterialCommunityIcons name="home" color={"black"} size={size} />
           )
         }}
       /> */}
       <Tab.Screen
-        name="Cart"
-        component={ShoppingCart}
+        name="Faves"
+        component={FavoritesList}
         options={{
           tabBarIcon: ({ size }) => (
-            <MaterialCommunityIcons name="cart" color={"black"} size={size} />
+            <MaterialCommunityIcons name="heart" color={"black"} size={size} />
           )
         }}
       />

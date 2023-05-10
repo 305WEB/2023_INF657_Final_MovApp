@@ -13,17 +13,15 @@ import CustomButton from "../shared/CustomButton";
 import styles from "../Styles";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
-import ShoppingList from "../_ShoppingList";
 import { auth } from "../../firebase";
 import ItemContext from "../../context/ItemContext";
+import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 
-export default function ProfilePage() {
-  const navigation = useNavigation();
-  // if (auth.currentUser == null || auth.currentUser.email == null) {
-  //   navigation.navigate("Sign In");
-  //   return;
-  // }
-  //
+const ProfilePage = ({ navigation }) => {
+  const { user } = UserAuth();
+
+  if (!user) navigation.navigate("Sign In");
+
   const [email, setEmail] = useState(auth.currentUser.email);
 
   const [username, setUsername] = useState("");
@@ -45,7 +43,7 @@ export default function ProfilePage() {
 
   return (
     <SafeAreaView
-      style={[{ backgroundColor: "#f1fc77", flex: 1 }, styles.flex1Center]}
+      style={[{ backgroundColor: "#CBE7FC", flex: 1 }, styles.flex1Center]}
     >
       <View>
         <Image
@@ -68,12 +66,9 @@ export default function ProfilePage() {
           />
         </View>
         <CustomButton text="Edit Profile" onPress={onEdit} />
-        {/* <CustomButton
-        bgColor="#f9e5b2"
-        text="Forgot Password"
-        onPress={OnForgotPassword}
-      /> */}
       </View>
     </SafeAreaView>
   );
-}
+};
+
+export default ProfilePage;

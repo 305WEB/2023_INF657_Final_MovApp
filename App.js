@@ -1,4 +1,4 @@
-import ShoppingList from "./components/_ShoppingList";
+import "react-native-gesture-handler";
 import SignInScreen from "./components/screens/SignInScreen";
 import SignUpScreen from "./components/screens/SignUpScreen";
 import ForgotPassword from "./components/screens/ForgotPassword";
@@ -11,27 +11,14 @@ import { ItemProvider } from "./context/ItemContext";
 
 export default function App() {
   return (
-    // <AuthContextProvider>
-    //   <NavigationContainer>
-    //     <MyTabs />
-    //   </NavigationContainer>
-    // </AuthContextProvider>
-
     <AuthContextProvider>
       <ItemProvider>
-        <NavigationContainer>
+        {/* <NavigationContainer>
           <MyTabs />
-        </NavigationContainer>
+        </NavigationContainer> */}
+
+        <Navigation />
       </ItemProvider>
     </AuthContextProvider>
-
-    // <AuthContextProvider>
-    //   <Navigation />
-    // </AuthContextProvider>
-
-    //<SignUpScreen />
-    // <SignInScreen/>
-    // <ForgotPassword />
-    // {<ShoppingList />;}
   );
 }

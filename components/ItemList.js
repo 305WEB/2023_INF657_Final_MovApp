@@ -13,31 +13,55 @@ import {
   Text,
   Image
 } from "react-native";
-
-import AddItem from "./AddItem";
 import Item from "./Item";
 import ItemContext from "../context/ItemContext";
+import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import styles from "./Styles";
 
-export default function ItemsList({ setSplashMessage }) {
-  const { itemListFB } = useContext(ItemContext);
+const ItemList = ({ navigation }) => {
+  const { movieData } = useContext(ItemContext);
+
+  let img_path = "https://image.tmdb.org/t/p/w500";
 
   return (
     <>
-      <AddItem />
-      <FlatList
-        data={itemListFB}
-        keyExtractor={(itemListFB) => itemListFB.id}
-        renderItem={({ item }) => (
-          <Item
-            id={item.id}
-            image={item.data.image}
-            title={item.data.title}
-            price={item.data.price}
-            quantity={item.data.quantity}
-            description={item.data.description}
+      <SafeAreaView>
+        <View style={styles.addItemAreaHeader}>
+          <Text style={styles.headerTitle}>Movie List</Text>
+          <MaterialCommunityIcons
+            name="filmstrip"
+            color={"black"}
+            size={35}
+            style={{
+              // display: addItemAreaBtn,
+              alignSelf: "flex-end",
+              zIndex: 5,
+              marginTop: -37,
+              right: 17,
+              width: 50,
+              height: 50
+            }}
           />
-        )}
-      />
+        </View>
+        <FlatList
+          data={movieData}
+          keyExtractor={(movieData) => movieData.id}
+          renderItem={({ item }) => (
+            <Item
+              id={item.id}
+              image={img_path + item.poster_path}
+              title={item.title}
+              price={item.price}
+              quantity={item.quantity}
+              description={item.overview}
+              release_date={item.release_date}
+              vote_average={item.vote_average}
+            />
+          )}
+        />
+      </SafeAreaView>
     </>
   );
-}
+};
+
+export default ItemList;

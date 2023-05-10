@@ -15,20 +15,61 @@ import { db } from "../firebase";
 
 const ItemContext = createContext();
 
+//  -------- MOVIE API
+
+const API_key = "&api_key=930d005e225f22ad2d72eba7084db91b";
+
+const base_url = "https://api.themoviedb.org/3";
+
+let search_API =
+  base_url + "/search/movie?api_key=930d005e225f22ad2d72eba7084db91b&query=";
+
+// DEFAULT URL
+
+let url =
+  base_url +
+  "/discover/movie?with_genres=18&primary_release_year=2022" +
+  API_key;
+
+let categories_All = ["Popular", "Theatre", "Kids", "Drama", "Comedy"];
+
+// --------- END MOVIE API
+
 export const ItemProvider = ({ children }) => {
+  // -------------------------------------------------MOVIE FETCH
+
+  //-------
+  const [movieData, setMovieData] = useState([]);
+  const [url_set, setUrl] = useState(url);
+
+  //------------
+
+  useEffect(() => {
+    fetchMovie();
+  }, [url_set]);
+
+  // To Fetch the Movie Data
+  const fetchMovie = async () => {
+    const response = await fetch(url_set);
+    const data = await response.json();
+    setMovieData(data.results);
+  };
+
+  // --------------------------------------------------- END MOVIE FETCH
+
   const [itemListFB, setItemListFB] = useState([]);
-  const [itemEdit, setItemEdit] = useState({
-    item: {},
-    edit: false
-  });
+  // const [itemEdit, setItemEdit] = useState({
+  //   item: {},
+  //   edit: false
+  // });
 
   // CART ITEMS
 
-  const [cartListFB, setCartListFB] = useState([]);
-  const [cartEdit, setCartEdit] = useState({
-    item: {},
-    edit: false
-  });
+  const [favoritesListFB, setfavoritesListFB] = useState([]);
+  // const [cartEdit, setCartEdit] = useState({
+  //   item: {},
+  //   edit: false
+  // });
 
   // USEEFFECT TRIGGERS fetchItem()
 
@@ -55,14 +96,14 @@ export const ItemProvider = ({ children }) => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const cartListFBRef = collection(db, "cartList");
-        const q = query(cartListFBRef, orderBy("title"), limit(10));
+        const favoritesListFBRef = collection(db, "movieList");
+        const q = query(favoritesListFBRef, orderBy("title"), limit(10));
         const querySnapShot = await getDocs(q);
-        const cartListFB = querySnapShot.docs.map((doc) => ({
+        const favoritesListFB = querySnapShot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data()
         }));
-        setCartListFB(cartListFB);
+        setfavoritesListFB(favoritesListFB);
       } catch (err) {
         console.log(err);
       }
@@ -84,13 +125,13 @@ export const ItemProvider = ({ children }) => {
     }
   };
 
-  //   ADD CART ITEM
-  const addItemToCart = (newItem) => {
+  //   ADD FAVE ITEM
+  const addItemToFaveList = (newItem) => {
     try {
-      const docRef = addDoc(collection(db, "cartList"), newItem);
+      const docRef = addDoc(collection(db, "movieList"), newItem);
       console.log("Document written: ", docRef.id);
-      setCartListFB((preCartListFB) => [
-        ...preCartListFB,
+      setfavoritesListFB((prefavoritesListFB) => [
+        ...prefavoritesListFB,
         { id: docRef.id, data: newItem }
       ]);
     } catch (err) {
@@ -100,13 +141,13 @@ export const ItemProvider = ({ children }) => {
 
   // EDIT ITEM
 
-  const editItem = (id, image, title, price, quantity, description) => {
-    console.log(id, image, title, price, quantity, description);
-    setItemEdit(
-      { id, image, title, price, quantity, description },
-      { edit: true }
-    );
-  };
+  // const editItem = (id, image, title, price, quantity, description) => {
+  //   console.log(id, image, title, price, quantity, description);
+  //   setItemEdit(
+  //     { id, image, title, price, quantity, description },
+  //     { edit: true }
+  //   );
+  // };
 
   // EDIT CART ITEM
 
@@ -146,7 +187,7 @@ export const ItemProvider = ({ children }) => {
     try {
       const docRef = doc(db, "cartList", id);
       await updateDoc(docRef, updateItem);
-      const updatedCartListFB = cartListFB.map((item) => {
+      const updatedfavoritesListFB = favoritesListFB.map((item) => {
         if (item.id === id) {
           return {
             id,
@@ -159,7 +200,7 @@ export const ItemProvider = ({ children }) => {
           return item;
         }
       });
-      setCartListFB(updatedCartListFB);
+      setfavoritesListFB(updatedfavoritesListFB);
     } catch (err) {
       console.log(err);
     }
@@ -167,66 +208,64 @@ export const ItemProvider = ({ children }) => {
 
   //  DELETE ITEM
 
+  const deleteItem = (id) => {
+    Alert.alert(
+      "Delete Item",
+      "Delete?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+            try {
+              const docRef = doc(db, "movieList", id);
+              deleteDoc(docRef);
+              setfavoritesListFB((preItemListFB) =>
+                preItemListFB.filter((item) => item.id !== id)
+              );
+            } catch (err) {
+              console.log(err);
+            }
+          },
+          style: "destructive"
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
+  // DELETE
   // const deleteItem = (id) => {
-  //   Alert.alert(
-  //     "Delete Item",
-  //     "Delete?",
-  //     [
-  //       {
-  //         text: "Cancel",
-  //         style: "cancel"
-  //       },
-  //       {
-  //         text: "Delete",
-  //         onPress: () => {
-  //           try {
-  //             const docRef = doc(db, "itemList", id);
-  //             deleteDoc(docRef);
-  //             setItemListFB((preItemListFB) =>
-  //               preItemListFB.filter((item) => item.id !== id)
-  //             );
-  //           } catch (err) {
-  //             console.log(err);
-  //           }
-  //         },
-  //         style: "destructive"
-  //       }
-  //     ],
-  //     { cancelable: false }
+  //   //---------------
+  //   deleteDoc(doc(db, "movieList", id));
+  //   setfavoritesListFB((preItemListFB) =>
+  //     preItemListFB.filter((item) => item.id !== id)
   //   );
   // };
 
-  const deleteItem = async (id) => {
-    //---------------
-    await deleteDoc(doc(db, "itemList", id));
-    setItemListFB((preItemListFB) =>
-      preItemListFB.filter((item) => item.id !== id)
-    );
-  };
-
-  const deleteCartItem = async (id) => {
-    //---------------
-    await deleteDoc(doc(db, "cartList", id));
-    setCartListFB((preCartListFB) =>
-      preCartListFB.filter((item) => item.id !== id)
-    );
-  };
+  // const deleteCartItem = async (id) => {
+  //   //---------------
+  //   await deleteDoc(doc(db, "cartList", id));
+  //   setfavoritesListFB((prefavoritesListFB) =>
+  //     prefavoritesListFB.filter((item) => item.id !== id)
+  //   );
+  // };
 
   return (
     <ItemContext.Provider
       value={{
+        movieData,
         itemListFB,
-        cartListFB,
+        favoritesListFB,
         addItem,
-        addItemToCart,
+        addItemToFaveList,
         updateItem,
         updateCartItem,
-        editItem,
         editCartItem,
-        itemEdit,
-        deleteItem,
-        deleteCartItem,
-        addItemToCart
+        deleteItem
       }}
     >
       {children}

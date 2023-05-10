@@ -9,311 +9,159 @@ import {
   Image,
   TextInput,
   Keyboard,
-  Pressable
+  Pressable,
+  Linking
 } from "react-native";
-import Data from "./Data";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 import styles from "./Styles";
 import React, { useRef } from "react";
 import * as ImagePicker from "expo-image-picker";
 import ItemContext from "../context/ItemContext";
+import { useNavigation } from "@react-navigation/native";
 import CustomButton from "./shared/CustomButton";
+import MovieDetail from "./screens/MovieDetail";
 
-export default function Item({
+const Item = ({
   id,
   image,
   title,
-  price,
-  quantity,
-  description
-  // itemList,
-  // setItemList
-}) {
-  const {
-    itemListFB,
-    updateItem,
-    editItem,
-    itemEdit,
-    deleteItem,
-    addItemToCart
-  } = useContext(ItemContext);
-  // Add Item Area
+  description,
+  release_date,
+  vote_average
+}) => {
+  const { deleteItem, addItemToFaveList } = useContext(ItemContext);
 
-  const [editItemArea, setEditItemArea] = useState("none");
-
-  // Add Item Area
-
-  const [addEditItemArea, setAddEditItemArea] = useState("none");
-
-  // State Var holds Edited item ID
-  const [editingId, setEditingId] = useState(null);
-
-  const [newTitle, setNewTitle] = useState(null);
-
-  const [newDescription, setNewDescription] = useState(null);
-
-  const [newPrice, setNewPrice] = useState(null);
-
-  const [newQuantity, setNewQuantity] = useState(null);
-
-  // Editing Input Fields back color
-  const [backColor, setBackColor] = useState("#fff");
-
-  // IMAGE PICKER ----------------------
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const pickImageAsync = async () => {
-    Keyboard.dismiss();
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1
-    });
-
-    if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
-    } else {
-      alert("You did not select any image.");
-    }
-  };
-
-  const imageSource =
-    selectedImage !== null
-      ? { uri: selectedImage }
-      : {
-          uri: "https://www.fhsu.edu/_files/images/fort-hays-state-university.svg"
-        };
-
-  // DELETE ITEM
-  // const deleteItem = (id) => {
-  //   setItemList(itemList.filter((item) => item.id !== id));
-  // };
-
-  // EDIT ITEM
-
-  // EDIT
-
-  const handleEdit = (id, image, title, price, quantity, description) => {
-    // const handleEdit = (id) => {
-    setAddEditItemArea("flex");
-    setEditingId(id);
-    // setBackColor("cyan");
-
-    editItem(id, image, title, price, quantity, description);
-
-    swipeableRef.current.close();
-  };
-
-  const handleCloseAddItemArea = () => {
-    setAddEditItemArea("none");
-  };
+  const navigation = useNavigation();
 
   // CLOSE SWIPEABLE
 
   const swipeableRef = useRef(null);
 
-  const handleCloseSwipe = () => {
-    swipeableRef.current.close();
-  };
+  // const handleCloseSwipe = () => {
+  //   swipeableRef.current.close();
+  // };
 
-  //  EDIT SUBMIT
-
-  const handleUpdateItem = () => {
-    // e.preventDefault();
-
-    // if (editingId) {
-    updateItem(id, {
-      title: newTitle,
-      description: newDescription,
-      price: newPrice,
-      quantity: newQuantity,
-      image: selectedImage
+  const navigateToMovieDetail = (
+    // image,
+    // title,
+    // description,
+    // release_date,
+    // vote_average
+    MovieDetailsInfo
+  ) => {
+    navigation.navigate("Movie Details", {
+      MovieDetailsInfo
+      // image: image,
+      // title: title,
+      // description: description,
+      // release_date: release_date,
+      // vote_average: vote_average
     });
-    // setItemList(newItemList);
-    setEditingId(null);
-    setNewDescription("");
-    setNewTitle("");
-    setNewPrice("");
-    setNewQuantity("");
-    setAddEditItemArea("none");
-    handleCloseSwipe();
-    // }
   };
 
-  // ADD TO CART
+  // ADD TO LIST
 
-  const handleAddToCart = () => {
-    console.log("Add to Cart");
-
+  const handleAddToFaveList = () => {
     const newItem = {
+      id: id,
       title: title,
       description: description,
-      price: price,
-      quantity: quantity,
-      image: image
+      image: image,
+      release_date: release_date,
+      vote_average: vote_average
     };
 
-    // handleAdd(newItem);
-    addItemToCart(newItem);
-    deleteItem(id);
+    addItemToFaveList(newItem);
+    alert("Movie Added!");
   };
+
+  const movie_url = "https://www.themoviedb.org/movie/";
 
   return (
     <>
-      <View style={{ height: 18 }}></View>
-      <Swipeable
-        ref={swipeableRef}
-        renderRightActions={() => (
-          <View style={styles.deleteContainer}>
-            <TouchableWithoutFeedback onPress={() => deleteItem(id)}>
+      <View style={{ height: 50 }}></View>
+
+      <TouchableHighlight
+        underlayColor={"#lightgrey"}
+        // onPress={() => console.log("Item Selected", itemList)}
+      >
+        <>
+          <View style={styles.mainContainerColumn1}>
+            <Image
+              style={styles.image}
+              source={{ uri: `${image}` }}
+              dataSet={{ media: styles.image }}
+            />
+
+            <Text
+              style={[
+                styles.spaceAround3,
+                styles.inputText,
+                styles.titleBoldText
+              ]}
+            >
+              {/* {title} */}
+            </Text>
+
+            <View>
+              <FontAwesome
+                name="plus"
+                size={15}
+                color="#000"
+                onPress={handleAddToFaveList}
+                style={{
+                  // display: addItemAreaBtn,
+                  alignSelf: "center",
+                  // zIndex: 5,
+                  // marginTop: 26,
+                  top: 12
+                  // right: 17,
+                  // width: 50,
+                  // height: 50
+                }}
+              />
               <MaterialCommunityIcons
-                name="trash-can"
+                name="heart"
                 size={34}
                 color="red"
-                style={styles.iconDel}
+                style={styles.iconHeart}
+                onPress={handleAddToFaveList}
               ></MaterialCommunityIcons>
-              <Text style={styles.iconText}>Delete</Text>
-            </TouchableWithoutFeedback>
-          </View>
-        )}
-        renderLeftActions={() => (
-          <View style={styles.editContainer}>
-            <TouchableWithoutFeedback
-              onPress={
-                () => handleEdit(id, image, title, price, quantity, description)
-                // handleEdit(id)
-              }
-            >
-              <AntDesign name="edit" size={34} color="#393c1c" />
-              <Text style={styles.iconText}>Edit</Text>
-            </TouchableWithoutFeedback>
-          </View>
-        )}
-      >
-        <TouchableHighlight
-          underlayColor={"#lightgrey"}
-          // onPress={() => console.log("Item Selected", itemList)}
-        >
-          <>
-            <View style={styles.mainContainerColumn1}>
-              <Image
-                style={styles.image}
-                source={{ uri: `${image}` }}
-                dataSet={{ media: styles.image }}
-              />
+              {/* </Text> */}
+              <Text style={[styles.inputTextRight, styles.itemPropBoldText]}>
+                Rated:
+              </Text>
+              <Text style={[styles.itemProp, styles.inputTextRight]}>
+                {vote_average}
+              </Text>
 
-              <Text
-                style={[
-                  styles.spaceAround3,
-                  styles.inputText,
-                  styles.titleBoldText
-                ]}
+              <Text style={[styles.inputTextRight, styles.itemPropBoldText]}>
+                Release Date:
+              </Text>
+              <Text style={[styles.itemProp, styles.inputTextRight]}>
+                {release_date}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.containerColumn3}>
+            <Text style={[styles.descBoldText]}>Movie: {title}</Text>
+            <Text style={styles.titleBoldText} onPress={navigateToMovieDetail}>
+              {/* <Text
+                style={{ color: "blue" }}
+                onPress={() => Linking.openURL(`${movie_url}${id}`)}
               >
-                {title}
-              </Text>
-              <View>
-                <Text style={[styles.inputTextRight, styles.itemPropBoldText]}>
-                  Price:
-                </Text>
-                <Text style={[styles.itemProp, styles.inputTextRight]}>
-                  ${price}
-                </Text>
-
-                <Text style={[styles.inputTextRight, styles.itemPropBoldText]}>
-                  Units:
-                </Text>
-                <Text style={[styles.itemProp, styles.inputTextRight]}>
-                  {quantity}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.containerColumn3}>
-              <Text style={[styles.descBoldText, styles.descBack]}>
-                Description:
-              </Text>
-              <Text style={styles.description}>{description}</Text>
-            </View>
-            <View style={styles.addToCartWrap}>
-              <Text style={styles.addToCartBtn} onPress={handleAddToCart}>
-                Add to Cart
-              </Text>
-            </View>
-          </>
-        </TouchableHighlight>
-      </Swipeable>
-
-      <View
-        style={{
-          display: addEditItemArea,
-          marginTop: 10,
-          backgroundColor: "#f6fda9",
-          paddingTop: 40
-          // borderTopColor: "darkblue",
-          // borderWidth: 0.5
-        }}
-      >
-        <View style={styles.flex1Center}>
-          <TextInput
-            style={styles.formField}
-            placeholderTextColor="#053B62"
-            value={newTitle}
-            onChangeText={setNewTitle}
-            placeholder="    New Title"
-          />
-          <TextInput
-            style={styles.formField}
-            placeholderTextColor="#053B62"
-            value={newDescription}
-            onChangeText={setNewDescription}
-            placeholder="    New Description"
-          />
-
-          <TextInput
-            style={styles.formField}
-            placeholderTextColor="#053B62"
-            onChangeText={setNewPrice}
-            placeholder="   New Price"
-            value={newPrice}
-            keyboardType="numeric"
-          />
-
-          <TextInput
-            style={styles.formField}
-            placeholderTextColor="#053B62"
-            onChangeText={setNewQuantity}
-            placeholder="   New Quantity"
-            value={newQuantity}
-            keyboardType="numeric"
-          />
-
-          <Pressable
-            style={[styles.button, { marginTop: 13 }]}
-            onPress={pickImageAsync}
-          >
-            <Text style={styles.buttonText}>Edit Image</Text>
-          </Pressable>
-
-          <Image
-            source={imageSource}
-            resizeMode="cover"
-            style={styles.selectedPhoto}
-          />
-        </View>
-        <View style={styles.flexRowEnd}>
-          <Pressable style={styles.button} onPress={handleCloseAddItemArea}>
-            <Text style={[styles.buttonText, { marginBottom: 50 }]}>
-              Cancel
+                {" "}
+                [Movie Page]
+              </Text> */}
+              Movie Details
             </Text>
-          </Pressable>
-          {/* <Pressable style={styles.button} onPress={handleSubmit}> */}
-          <Pressable style={styles.button} onPress={handleUpdateItem}>
-            <Text style={[styles.buttonText, { marginBottom: 50 }]}>
-              Submit
-            </Text>
-          </Pressable>
-        </View>
-      </View>
+          </View>
+        </>
+      </TouchableHighlight>
     </>
   );
-}
+};
+
+export default Item;

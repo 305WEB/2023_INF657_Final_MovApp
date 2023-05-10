@@ -33,7 +33,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <View style={[{ backgroundColor: "#f1fc77", flex: 1 }, styles.flex1Center]}>
+    <View style={[{ backgroundColor: "#CBE7FC", flex: 1 }, styles.flex1Center]}>
       <Image
         source={ImageIcon}
         style={(styles.signImage, { height: height * 0.2 })}

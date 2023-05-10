@@ -54,8 +54,8 @@ const { ids, styles } = StyleSheet.create({
   iconText: {
     marginTop: 5
   },
-  iconDel: {
-    marginLeft: 10
+  iconHeart: {
+    marginLeft: 25
   },
   deleteContainer: {
     backgroundColor: "#A8B053",
@@ -93,13 +93,13 @@ const { ids, styles } = StyleSheet.create({
   },
   addItemAreaHeader: {
     width: "100%",
-    backgroundColor: "#f1fc77",
+    backgroundColor: "#CBE7FC",
     height: 54,
     position: "fixed"
   },
   headerTitle: {
     width: "40%",
-    marginTop: 10,
+    marginTop: 15,
     marginLeft: 20,
     "@media (min-width: 568px)": {
       marginLeft: 30
@@ -217,9 +217,9 @@ const { ids, styles } = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "#f9fec2"
   },
-  addToCartBtn: {
+  addToFaveBtn: {
     color: "orangered",
-    backgroundColor: "#f9fec2",
+    // backgroundColor: "#f9fec2",
     marginBottom: 15
   }
 });
