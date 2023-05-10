@@ -52,13 +52,17 @@ const { ids, styles } = StyleSheet.create({
     display: "none"
   },
   iconText: {
-    marginTop: 5
+    marginTop: 5,
+    color: "#fff"
   },
   iconHeart: {
     marginLeft: 25
   },
+  iconDel: {
+    marginLeft: 10
+  },
   deleteContainer: {
-    backgroundColor: "#A8B053",
+    backgroundColor: "#005996",
     width: 100,
     justifyContent: "center",
     alignItems: "center"
@@ -89,7 +93,7 @@ const { ids, styles } = StyleSheet.create({
     padding: 8,
     marginBottom: 10,
     color: "darkblue",
-    backgroundColor: "#f9fec2"
+    backgroundColor: "#e0fff7"
   },
   addItemAreaHeader: {
     width: "100%",
@@ -120,9 +124,9 @@ const { ids, styles } = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     flexWrap: "nowrap",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center"
+    // justifyContent: "center",
+    alignItems: "center"
+    // alignContent: "center"
   },
   flex1CenterChild: {
     marginTop: "50%",
@@ -136,7 +140,7 @@ const { ids, styles } = StyleSheet.create({
     marginVertical: 15,
     borderWidth: 0.5,
     borderColor: "darkblue",
-    backgroundColor: "#f9fec2"
+    backgroundColor: "#e0fff7"
   },
   button: {
     alignItems: "center",
@@ -158,7 +162,7 @@ const { ids, styles } = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 22,
     borderRadius: 5,
-    backgroundColor: "#f9fec2"
+    backgroundColor: "#e0fff7"
   },
   descBoldText: {
     fontWeight: "bold",
@@ -183,7 +187,7 @@ const { ids, styles } = StyleSheet.create({
     fontSize: 12.5,
     paddingBottom: 15,
     paddingTop: 8,
-    backgroundColor: "#f9fec2",
+    backgroundColor: "#e0fff7",
     paddingLeft: 15,
     // color: "#565a29"
     color: "#666b31"
@@ -197,7 +201,7 @@ const { ids, styles } = StyleSheet.create({
     fontWeight: "normal"
   },
   descBack: {
-    backgroundColor: "#f9fec2"
+    backgroundColor: "#e0fff7"
   },
   signImage: {
     width: 100,
@@ -215,11 +219,11 @@ const { ids, styles } = StyleSheet.create({
     justifyContent: "flex-end",
     flexDirection: "row",
     paddingHorizontal: 20,
-    backgroundColor: "#f9fec2"
+    backgroundColor: "#e0fff7"
   },
   addToFaveBtn: {
     color: "orangered",
-    // backgroundColor: "#f9fec2",
+    // backgroundColor: "#e0fff7",
     marginBottom: 15
   }
 });

@@ -12,7 +12,6 @@ import CustomInput from "../shared/CustomInput";
 import CustomButton from "../shared/CustomButton";
 import styles from "../Styles";
 import { UserAuth } from "../../context/AuthContext";
-import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../firebase";
 import ItemContext from "../../context/ItemContext";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
@@ -20,7 +19,11 @@ import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 const ProfilePage = ({ navigation }) => {
   const { user } = UserAuth();
 
-  if (!user) navigation.navigate("Sign In");
+  {
+    user
+      ? navigation.navigate("Profile Screen")
+      : navigation.navigate("Sign In");
+  }
 
   const [email, setEmail] = useState(auth.currentUser.email);
 

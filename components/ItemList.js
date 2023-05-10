@@ -25,7 +25,7 @@ const ItemList = ({ navigation }) => {
 
   return (
     <>
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: "#e0fff7" }}>
         <View style={styles.addItemAreaHeader}>
           <Text style={styles.headerTitle}>Movie List</Text>
           <MaterialCommunityIcons

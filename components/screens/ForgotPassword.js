@@ -12,12 +12,11 @@ import CustomButton from "../shared/CustomButton";
 import styles from "../Styles";
 import { useNavigation } from "@react-navigation/native";
 
-export default function ForgotPassword() {
+const ForgotPassword = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
   const { height } = useWindowDimensions();
-  const navigation = useNavigation();
 
   const onConfirm = () => {
     console.warn("Sending Link");
@@ -52,4 +51,6 @@ export default function ForgotPassword() {
       <CustomButton text="< Back to Sign In" onPress={onHandleBackSingIn} />
     </View>
   );
-}
+};
+
+export default ForgotPassword;

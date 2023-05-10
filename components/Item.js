@@ -83,10 +83,7 @@ const Item = ({
     <>
       <View style={{ height: 50 }}></View>
 
-      <TouchableHighlight
-        underlayColor={"#lightgrey"}
-        // onPress={() => console.log("Item Selected", itemList)}
-      >
+      <TouchableHighlight underlayColor={"#lightgrey"}>
         <>
           <View style={styles.mainContainerColumn1}>
             <Image

@@ -5,8 +5,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator  } from '@react-navigation/native-stack';
 import SignInScreen from "../components/screens/SignInScreen";
 import SignUpScreen from "../components/screens/SignUpScreen";
 import ForgotPassword from "../components/screens/ForgotPassword";
@@ -21,16 +19,12 @@ const Stack = createStackNavigator();
 
 function HomeStackScreen() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}
-    >
+    <Stack.Navigator screenOptions={{}}>
       <Stack.Screen name="Home" component={ItemList} />
       <Stack.Screen name="Explore" component={SignUpScreen} />
-      {/* <Stack.Screen name="Notifications" component={ForgotPassword} /> */}
+      {/* <Stack.Screen name="Forgot Pass" component={ForgotPassword} /> */}
       <Stack.Screen name="Movie Details" component={MovieDetail} />
-      <Stack.Screen name="Item" component={Item} />
+      <Stack.Screen name="Profile Screen" component={ProfilePage} />
     </Stack.Navigator>
   );
 }
@@ -73,7 +67,7 @@ function TabNavigator() {
       />
 
       <Tab.Screen
-        name="Profile"
+        name="Profile Screen"
         component={ProfilePage}
         options={{
           tabBarIcon: ({ size }) => (
@@ -89,34 +83,51 @@ function TabNavigator() {
   );
 }
 
-// const AuthStack = createStackNavigator();
-// const AuthStackScreen = () => (
-//   <AuthStack.Navigator>
-//     <AuthStack.Screen name="SignIn" component={SignInScreen} />
-//   </AuthStack.Navigator>
-// );
+const AuthStack = createStackNavigator();
+const AuthStackScreen = () => (
+  <AuthStack.Navigator>
+    <AuthStack.Screen name="Sing In" component={SignInScreen} />
+    <AuthStack.Screen name="Forgot Pass" component={ForgotPassword} />
+    <AuthStack.Screen name="Sign Up" component={SignUpScreen} />
+  </AuthStack.Navigator>
+);
 
 // define your drawer navigator
 const Drawer = createDrawerNavigator();
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      screenOptions={{
+        drawerStyle: {
+          backgroundColor: "#f4fffc",
+          width: 240
+        }
+      }}
+    >
       <Drawer.Screen name="Home Screen" component={TabNavigator} />
       <Drawer.Screen name="Movie List" component={ItemList} />
       <Drawer.Screen name="Favorite List" component={FavoritesList} />
       <Drawer.Screen name="Profile Screen" component={ProfilePage} />
-      <Drawer.Screen name="Movie Details" component={MovieDetail} />
+      <Drawer.Screen
+        name="Movie Details"
+        component={MovieDetail}
+        options={{
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null
+        }}
+      />
     </Drawer.Navigator>
   );
 }
 
 // wrap your navigators in the NavigationContainer
 export default function Navigation() {
-  // const { user } = UserAuth();
+  const { user } = UserAuth();
   return (
     <NavigationContainer>
-      {/* {user ? <DrawerNavigator /> : <AuthStackScreen />} */}
-      <DrawerNavigator />
+      {user ? <DrawerNavigator /> : <AuthStackScreen />}
+      {/* <DrawerNavigator /> */}
     </NavigationContainer>
   );
 }

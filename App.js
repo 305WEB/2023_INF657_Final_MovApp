@@ -6,17 +6,12 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Navigation from "./navigation/Navigation";
 import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import MyTabs from "./navigation/BottomNavigation";
 import { ItemProvider } from "./context/ItemContext";
 
 export default function App() {
   return (
     <AuthContextProvider>
       <ItemProvider>
-        {/* <NavigationContainer>
-          <MyTabs />
-        </NavigationContainer> */}
-
         <Navigation />
       </ItemProvider>
     </AuthContextProvider>

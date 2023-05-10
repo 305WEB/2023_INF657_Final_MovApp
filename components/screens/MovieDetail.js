@@ -17,14 +17,9 @@ import { Swipeable } from "react-native-gesture-handler";
 import styles from "../Styles";
 import React, { useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
-import BottomNavigation from "../../navigation/BottomNavigation";
 import FaveItem from "../FaveItem";
 import { NavigationContainer } from "@react-navigation/native";
 import { navigation } from "../../navigation/Navigation";
-// import { MovieDetailsInfo } from "../FaveItem";
-// import * as ImagePicker from "expo-image-picker";
-// import ItemContext from "../context/ItemContext";
-// import CustomButton from "./shared/CustomButton";
 
 const MovieDetail = ({ route }) => {
   const navigation = useNavigation();

@@ -28,64 +28,14 @@ export default function FaveItem({
   title,
   description,
   release_date,
-  vote_average
+  vote_average,
+  navigation
 }) {
-  const navigation = useNavigation();
-
   const { deleteItem, addItemToFaveList } = useContext(ItemContext);
-  // Add Item Area
 
   // CLOSE SWIPEABLE
 
   const swipeableRef = useRef(null);
-
-  // const handleCloseSwipe = () => {
-  //   swipeableRef.current.close();
-  // };
-
-  //  EDIT SUBMIT
-
-  // const handleUpdateItem = () => {
-  //   // e.preventDefault();
-
-  //   // if (editingId) {
-  //   updateItem(id, {
-  //     title: newTitle,
-  //     description: newDescription,
-  //     price: newPrice,
-  //     quantity: newQuantity,
-  //     image: selectedImage
-  //   });
-  //   // setItemList(newItemList);
-  //   setEditingId(null);
-  //   setNewDescription("");
-  //   setNewTitle("");
-  //   setNewPrice("");
-  //   setNewQuantity("");
-  //   setAddEditItemArea("none");
-  //   handleCloseSwipe();
-  //   // }
-  // };
-
-  // ADD TO CART
-
-  // const handleAddToFaveList = () => {
-  //   console.log("Add to Cart");
-
-  //   const newItem = {
-  //     title: title,
-  //     description: description,
-  //     image: image,
-  //     release_date: release_date,
-  //     vote_average: vote_average
-  //   };
-
-  //   addItemToFaveList(newItem);
-  // };
-
-  // const handleRedirect = (id) => {
-  //   navigation.navigate("Movie Detail");
-  // };
 
   const movie_url = "https://www.themoviedb.org/movie/";
 
@@ -100,7 +50,7 @@ export default function FaveItem({
               <MaterialCommunityIcons
                 name="trash-can"
                 size={34}
-                color="red"
+                color="#e0fff7"
                 style={styles.iconDel}
               ></MaterialCommunityIcons>
               <Text style={styles.iconText}>Delete</Text>
@@ -146,15 +96,15 @@ export default function FaveItem({
                 </Text>
               </View>
             </View>
-            {/* <View style={styles.containerColumn3}>
+            <View style={styles.containerColumn3}>
               <Text style={[styles.descBoldText, styles.descBack]}>
                 Overview:
               </Text>
               <Text style={styles.description}>{description}</Text>
-            </View> */}
-            <View style={styles.addToCartWrap}>
-              <Text style={styles.addToCartBtn}>Movie Details</Text>
             </View>
+            {/* <View style={styles.addToCartWrap}>
+              <Text style={styles.addToCartBtn}>Movie Details</Text>
+            </View> */}
           </>
         </TouchableHighlight>
       </Swipeable>
